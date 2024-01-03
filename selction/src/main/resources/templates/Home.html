@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form th:action="@{/tournament}" method="post">
+        <input type="text" name="tournament-name" placeholder="tournament-Name">
+        <input type="number" name="Date" placeholder="Year" min="2000"  >
+
+        <button type="submit">submit</button>
+    </form>
+</body>
+</html>

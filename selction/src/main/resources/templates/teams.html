@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Input Page</title>
+</head>
+<body>
+    
+ 
+    <div th:unless="${teamsCount} or ${matchs}" >
+
+        <form th:action="@{/submit-teams}" method="post">
+            
+            <label for="teamCount">Enter the count of teams:</label>
+            <input type="number" id="teamCount" name="teamCount" required />
+            <button >Submit</button>
+        </form>
+    </div>
+        <form th:action="@{/teams}" method="post">
+            <!-- Loop to generate input fields based on team count -->
+            <div th:if="${teamsCount}">
+            <div th:each="teamNumber : ${#numbers.sequence(1, teamsCount)}">
+                <div class="mb-3">
+                    <label th:for="${'teamName' + teamNumber}" th:text="${'Team ' + teamNumber + ' Name:'}"></label>
+                    <input type="text" th:id="${'teamName' + teamNumber}" th:name="teamNumber" required />
+                </div>
+            </div>
+            <button type="submit">submit</button>
+        </div>
+    </form>
+    
+
+    <div th:if="${matchs}">
+
+        <form th:action="@{/teams-result}" method="post">
+            <!-- Loop to generate input fields based on team count -->
+            
+            <div th:each="team : ${matchs}">
+                <div class="mb-3">
+                    <span th:text="${team.team}"></span>
+                      
+                    <span>Vs</span>
+                    <span th:text="${team.opp_teams}"></span>
+                    <br>
+                    <input type="text" name="teams1Score" th:placeholder="${team.team}+' Score'">
+                    <input type="text" name="teams2Score" th:placeholder="${team.opp_teams}+' Score'">
+
+                </div>
+            </div>
+            <button type="submit">submit</button>
+        
+    </form>
+</div>
+
+</body>
+</html>
